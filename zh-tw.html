@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>史萊姆軍團｜影片創作者募集</title>
+  <style>
+    :root {
+      --ink: #2b2451;
+      --purple: #563196;
+      --deep-purple: #281452;
+      --gold: #ffd95c;
+      --gold-dark: #7b4a16;
+      --paper: #fff0d4;
+      --pink: #e7a0f0;
+      --red: #f3525d;
+      --sky: #10bce7;
+      --blue: #4da0ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+      font-weight: 800;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255, 255, 255, .95) 0 8%, transparent 9%),
+        radial-gradient(circle at 88% 22%, rgba(255, 255, 255, .72) 0 7%, transparent 8%),
+        radial-gradient(circle at 12% 74%, rgba(255, 255, 255, .6) 0 5%, transparent 6%),
+        linear-gradient(180deg, #22d8f4 0%, #9beeff 22%, #d9f8ff 48%, #44c7ec 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset-block: 0;
+      width: min(13vw, 160px);
+      pointer-events: none;
+      opacity: .28;
+      background:
+        linear-gradient(135deg, transparent 0 28%, rgba(255,255,255,.8) 29% 31%, transparent 32%),
+        linear-gradient(45deg, transparent 0 55%, rgba(28,92,148,.34) 56% 58%, transparent 59%),
+        linear-gradient(180deg, transparent, rgba(12,93,156,.28));
+      filter: blur(.1px);
+    }
+
+    body::before {
+      left: 0;
+    }
+
+    body::after {
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .page {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero {
+      min-height: clamp(520px, 70vw, 760px); display: grid;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 20%, rgba(255,255,255,.92) 0 8%, transparent 9%), radial-gradient(circle at 82% 16%, rgba(255,255,255,.75) 0 6%, transparent 7%), linear-gradient(180deg, rgba(32,216,244,.95), rgba(151,238,255,.82));
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% 0;
+      height: 38%;
+      background: linear-gradient(180deg, rgba(28,14,74,0), rgba(28,14,74,.4));
+      z-index: -1;
+    }
+
+    .title-stack {
+      text-align: center;
+      align-self: end;
+      padding: clamp(64px, 12vw, 132px) clamp(18px, 5vw, 48px) clamp(48px, 8vw, 96px);
+    }
+
+    .title {
+      margin: 0;
+      color: #fff56d;
+      font-size: clamp(50px, 10vw, 112px);
+      line-height: .95;
+      letter-spacing: 0;
+      text-shadow: 0 5px 0 #2e1654, 0 10px 0 #7d2bf3, 0 16px 22px rgba(0,0,0,.42);
+      -webkit-text-stroke: clamp(2px, .45vw, 6px) #fff7b3;
+    }
+
+    .title span {
+      display: block;
+      color: #fff;
+      margin-top: .12em;
+      -webkit-text-stroke-color: #2e1654;
+    }
+
+    .tagline {
+      margin: clamp(20px, 4vw, 34px) auto 0;
+      width: fit-content;
+      max-width: 100%;
+      color: #fff;
+      background: rgba(74,28,132,.88);
+      border-block: 2px solid rgba(255,255,255,.65);
+      padding: .55em 1em;
+      font-size: clamp(18px, 3vw, 32px);
+      text-shadow: 0 3px 0 #2d174c;
+    }
+    .frame {
+      margin: 0 clamp(14px, 3vw, 38px) 0;
+      padding: clamp(22px, 4vw, 44px) clamp(18px, 5vw, 58px) clamp(36px, 7vw, 80px);
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 17%, rgba(179, 117, 39, .08), transparent 26%),
+        linear-gradient(180deg, rgba(255,251,227,.98), rgba(255,239,205,.96));
+      border: clamp(6px, 1.2vw, 12px) solid #2b174f;
+      outline: 5px solid #d5ad55;
+      box-shadow:
+        inset 0 0 0 4px #7050a6,
+        inset 0 0 28px rgba(123,74,22,.15),
+        0 14px 34px rgba(28, 14, 74, .28);
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background:
+        repeating-linear-gradient(180deg, #f5d86d 0 18px, #3a1c65 18px 30px, #f5d86d 30px 42px),
+        linear-gradient(90deg, #271246, #6e4aa0, #271246);
+      border-inline: 4px solid #1b0d35;
+      opacity: .9;
+    }
+
+    .frame::before {
+      left: -28px;
+    }
+
+    .frame::after {
+      right: -28px;
+    }
+
+    .section {
+      margin: clamp(28px, 6vw, 60px) auto 0;
+      max-width: 850px;
+    }
+
+    .section:first-child {
+      margin-top: 0;
+    }
+
+    .plate {
+      width: min(520px, 92%);
+      margin: 0 auto clamp(18px, 3vw, 28px);
+      color: var(--gold);
+      text-align: center;
+      font-size: clamp(30px, 5.6vw, 58px);
+      line-height: 1.1;
+      padding: .22em .65em .3em;
+      background: linear-gradient(180deg, #6d52ae, #3a236e);
+      border: 5px solid #21103e;
+      outline: 4px solid #e7a83f;
+      border-radius: 8px;
+      text-shadow:
+        0 3px 0 #0e0821,
+        0 0 12px rgba(255, 255, 255, .24);
+      box-shadow: 0 5px 0 #7b4a16;
+    }
+
+    .intro-text,
+    .center-text {
+      text-align: center;
+      font-size: clamp(18px, 3vw, 30px);
+      line-height: 1.45;
+    }
+
+    .schedule {
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      font-size: clamp(17px, 2.5vw, 27px);
+    }
+
+    .idea-list {
+      display: grid;
+      gap: 8px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 20px auto 0;
+      padding: 0;
+      list-style: none;
+      font-size: clamp(18px, 2.7vw, 29px);
+    }
+
+    .idea-list li::before {
+      content: "";
+      display: inline-block;
+      width: .72em;
+      height: .72em;
+      margin-right: .55em;
+      background: linear-gradient(135deg, #ff6a78, #dd1022);
+      border: 2px solid rgba(255,255,255,.85);
+      transform: rotate(45deg);
+      box-shadow: 0 2px 0 rgba(31,20,80,.5);
+    }
+
+    .note {
+      margin: 24px auto 0;
+      max-width: 800px;
+      font-size: clamp(15px, 2.2vw, 21px);
+    }
+
+    .rewards {
+      display: grid;
+      gap: clamp(18px, 3.8vw, 34px);
+      margin-top: 28px;
+    }
+
+    .reward {
+      text-align: center;
+    }
+
+    .reward-label {
+      display: inline-block;
+      min-width: min(420px, 86%);
+      color: var(--gold);
+      font-size: clamp(22px, 4vw, 36px);
+      line-height: 1.15;
+      padding: .16em .7em .25em;
+      background: linear-gradient(180deg, #7a57b9, #4a2b83);
+      border: 4px solid #21103e;
+      outline: 3px solid #d69b35;
+      border-radius: 7px;
+      text-shadow: 0 3px 0 #0f0823;
+      box-shadow: 0 4px 0 #704017;
+    }
+
+    .reward-value {
+      position: relative;
+      margin: 16px auto 0;
+      padding: .55em 1.8em;
+      width: min(760px, 94%);
+      color: var(--ink);
+      font-size: clamp(18px, 3vw, 29px);
+      background: rgba(255, 249, 230, .76);
+      border-block: 7px solid var(--pink);
+      clip-path: polygon(4% 0, 96% 0, 100% 50%, 96% 100%, 4% 100%, 0 50%);
+    }
+
+    .small-print {
+      margin: 26px auto 0;
+      max-width: 850px;
+      font-size: clamp(14px, 2vw, 20px);
+    }
+
+    .steps {
+      display: grid;
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      align-items: center;
+      border-bottom: 2px solid #25205a;
+      min-height: 64px;
+    }
+
+    .step-badge {
+      color: #fff;
+      background: var(--red);
+      font-size: clamp(19px, 2.8vw, 30px);
+      line-height: 1;
+      padding: .45em .7em;
+      text-align: center;
+      clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%);
+      text-shadow: 0 2px 0 rgba(0,0,0,.24);
+    }
+
+    .step p {
+      margin: 0;
+      padding: 0 0 0 22px;
+      font-size: clamp(16px, 2.4vw, 24px);
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .platform {
+      text-align: center;
+      margin-top: 38px;
+    }
+
+    .platform-title {
+      font-size: clamp(25px, 4vw, 42px);
+      color: #fff;
+      -webkit-text-stroke: 2px var(--ink);
+      text-shadow: 0 3px 0 rgba(43,36,81,.7);
+    }
+
+    .platform-strip {
+      display: inline-block;
+      max-width: 100%;
+      margin-top: 8px;
+      padding: .35em 1.25em;
+      color: var(--ink);
+      background: #dfa2ed;
+      font-size: clamp(17px, 2.7vw, 28px);
+      clip-path: polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%);
+    }
+
+    .notice {
+      margin-top: 36px;
+      padding: clamp(20px, 4vw, 42px);
+      border: 7px solid #a89aae;
+      border-radius: 28px;
+      background: rgba(255, 247, 225, .68);
+      box-shadow: inset 0 0 0 4px rgba(255,255,255,.65);
+    }
+
+    .notice h2 {
+      width: fit-content;
+      margin: -62px auto 22px;
+      padding: .1em 1.4em;
+      color: var(--ink);
+      background: var(--paper);
+      border: 7px solid #a89aae;
+      border-radius: 999px;
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 1.1;
+    }
+
+    .notice ol {
+      margin: 0;
+      padding-left: 1.4em;
+      font-size: clamp(14px, 2vw, 21px);
+    }
+
+    .notice li + li {
+      margin-top: .45em;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: clamp(40px, 7vw, 74px);
+    }
+
+    .cta-title {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.15;
+      -webkit-text-stroke: 2px var(--ink);
+      text-shadow: 0 4px 0 rgba(43,36,81,.72);
+    }
+
+    .cta-copy {
+      margin: 14px 0 24px;
+      font-size: clamp(18px, 3vw, 30px);
+      line-height: 1.35;
+    }
+
+    .cta-button {
+      display: inline-block;
+      min-width: min(390px, 92%);
+      padding: .72em 1.2em;
+      color: #fff56d;
+      font-size: clamp(22px, 3.5vw, 36px);
+      line-height: 1.1;
+      background: linear-gradient(180deg, #875ee0, #4a258e);
+      border: 5px solid #21103e;
+      outline: 4px solid #f3c253;
+      border-radius: 8px;
+      text-shadow: 0 3px 0 #130926;
+      box-shadow: 0 6px 0 #794719, 0 14px 22px rgba(43, 36, 81, .24);
+    }
+
+    .brand {
+      margin-top: 46px;
+      text-align: center;
+      color: #fff56d;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: .95;
+      text-shadow:
+        0 3px 0 #2e1654,
+        0 6px 0 #7d2bf3,
+        0 10px 18px rgba(0, 0, 0, .35);
+      -webkit-text-stroke: 2px #fff;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 460px;
+      }
+
+      .title-stack {
+      text-align: center;
+      align-self: end;
+      padding: clamp(64px, 12vw, 132px) clamp(18px, 5vw, 48px) clamp(48px, 8vw, 96px);
+    }
+
+    .title {
+      margin: 0;
+      color: #fff56d;
+      font-size: clamp(50px, 10vw, 112px);
+      line-height: .95;
+      letter-spacing: 0;
+      text-shadow: 0 5px 0 #2e1654, 0 10px 0 #7d2bf3, 0 16px 22px rgba(0,0,0,.42);
+      -webkit-text-stroke: clamp(2px, .45vw, 6px) #fff7b3;
+    }
+
+    .title span {
+      display: block;
+      color: #fff;
+      margin-top: .12em;
+      -webkit-text-stroke-color: #2e1654;
+    }
+
+    .tagline {
+      margin: clamp(20px, 4vw, 34px) auto 0;
+      width: fit-content;
+      max-width: 100%;
+      color: #fff;
+      background: rgba(74,28,132,.88);
+      border-block: 2px solid rgba(255,255,255,.65);
+      padding: .55em 1em;
+      font-size: clamp(18px, 3vw, 32px);
+      text-shadow: 0 3px 0 #2d174c;
+    }
+    .frame {
+        margin-inline: 12px;
+        outline-width: 3px;
+      }
+
+      .frame::before,
+      .frame::after {
+        width: 16px;
+      }
+
+      .frame::before {
+        left: -17px;
+      }
+
+      .frame::after {
+        right: -17px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        border-bottom: 0;
+        gap: 8px;
+      }
+
+      .step-badge {
+        width: 148px;
+      }
+
+      .step p {
+        padding-left: 0;
+        border-bottom: 2px solid #25205a;
+        padding-bottom: 12px;
+      }
+
+      .notice {
+        border-radius: 18px;
+      }
+
+      .notice h2 {
+        margin-top: -48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="影片創作者募集主視覺"><div class="title-stack"><h1 class="title">影片創作者<span>募集！</span></h1><p class="tagline">發布《史萊姆軍團》原創影片，就有機會抱走豐富獎勵！</p></div></section>
+
+    <section class="frame">
+      <div class="section">
+        <h2 class="plate">活動時程</h2>
+        <div class="schedule">
+          <div>投稿期間：即日起～2026年12月15日 23:59（UTC0）</div>
+          <div>評選期間：2026年12月15日～12月31日</div>
+          <div>得獎名單公布：2027年1月（預定）</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">投稿內容</h2>
+        <p class="intro-text">只要是與《史萊姆軍團》相關的原創影片，主題及類型不限！<br>以下是一些創作方向，歡迎發揮你的創意：</p>
+        <ul class="idea-list">
+          <li>遊戲實況、玩法分享</li>
+          <li>攻略教學、技巧解析</li>
+          <li>趣味挑戰、搞笑影片</li>
+          <li>精彩瞬間、戰鬥精華</li>
+          <li>梗圖、迷因、二創作品等</li>
+        </ul>
+        <div class="note">
+          <strong>投稿須知：</strong><br>
+          - 投稿影片長度須達15秒以上。<br>
+          - 僅單純錄製遊戲畫面、未經任何加工的影片，不列入有效投稿。請加入實況解說、攻略分享、影片剪輯等原創內容，展現你的創意！
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">活動獎勵</h2>
+        <div class="rewards">
+          <div class="reward">
+            <div class="reward-label">【首獎】1名</div>
+            <div class="reward-value">NT$8,200＋鑽石 × 3,000＋米娜碎片 × 3</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【優選獎】2名</div>
+            <div class="reward-value">NT$3,100＋鑽石 × 1,600＋不知火碎片 × 3</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【佳作獎】3名</div>
+            <div class="reward-value">NT$1,450＋鑽石 × 800＋先知碎片 × 3</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【幸運抽獎】10名</div>
+            <div class="reward-value">隨機初級天賦石 × 5＋隨機初級天賦石 × 10</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">投稿參加獎</div>
+            <div class="reward-value">隨機初級天賦石 × 10</div>
+          </div>
+        </div>
+        <div class="small-print">
+          - 每位符合資格的參加者，不論投稿數量，皆可獲得一次投稿參加獎。<br>
+          - 幸運抽獎將從未獲得首獎、優選獎及佳作獎的有效投稿者中隨機抽出，每位參加者僅有一次抽獎機會。<br>
+          - 即使已獲得其他獎項，仍可領取投稿參加獎。
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">參加方式</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-badge">STEP 1</div>
+            <p>製作一部與《史萊姆軍團》相關的原創影片！</p>
+          </div>
+          <div class="step">
+            <div class="step-badge">STEP 2</div>
+            <p>在指定平台發布影片，並加上指定標籤 <a href="#hashtags">#SlimeLegion</a> 及 <a href="#hashtags">#SlimeLegionVideoContest</a>！</p>
+          </div>
+          <div class="step">
+            <div class="step-badge">STEP 3</div>
+            <p>前往<a href="https://forms.gle/6Wh48RkCDwFjK48B6">官方活動報名表</a>，填寫相關資料並提交影片連結，即可完成報名！</p>
+          </div>
+        </div>
+
+        <div class="platform" id="hashtags">
+          <div class="platform-title">指定投稿平台</div>
+          <div class="platform-strip">YouTube / TikTok / X / Instagram 等社群平台</div>
+        </div>
+      </div>
+
+      <div class="section notice">
+        <h2>注意事項</h2>
+        <ol>
+          <li>投稿內容須與《史萊姆軍團》相關。</li>
+          <li>請確保投稿作品未侵害任何第三方權益，包括智慧財產權、肖像權、名譽權等。嚴禁抄襲或盜用他人作品。若作品中使用第三方素材，請事先取得相關權利人的授權，並註明素材來源。</li>
+          <li>同一位創作者可以投稿多部作品，但首獎、優選獎及佳作獎不得重複得獎。若同一位創作者多部作品入選，僅頒發其中最高等級的獎項。</li>
+          <li>所有使用 AI 生成的影片、音樂、圖片及其他形式的作品，均不具參賽資格。投稿作品中只要包含 AI 生成內容，即視為不符合參賽資格。</li>
+          <li>投稿作品如包含政治、宗教、種族或性別歧視、損害《史萊姆軍團》或營運公司品牌形象及商譽，或違反相關法律法規等內容，將取消參賽資格；若於得獎後才發現違規情形，官方亦有權取消得獎資格及追回獎勵。</li>
+          <li>投稿帳號及作品須自投稿時起至評選結束期間保持公開。得獎者須於得獎名單公布後至少7天內，維持得獎作品公開狀態。若於此期間刪除作品或將作品設為非公開，官方有權取消其得獎資格。</li>
+          <li>若將同一部影片發布於多個指定平台，仍僅視為一件投稿作品。請勿重複提交報名表，並於同一份報名表中填寫所有平台的影片連結。</li>
+          <li>僅通過官方審核的投稿作品，方可參與獎項評選。</li>
+          <li>官方將綜合考量作品完成度、呈現效果、創意、話題性等因素進行評選。若投稿數量不足，或參賽作品品質未達評選標準，部分獎項名額可能從缺。若得獎作品因違反活動規則而失去得獎資格，官方得從其他符合評選標準的作品中遞補得獎者。</li>
+          <li>得獎名單公布後，得獎者須於指定期限內，依照指定方式提交領取獎勵所需的資料。若未於期限內提供資料，或所提供的資料有誤，將視同放棄領獎資格。放棄的獎勵將不另行補發，請特別留意。</li>
+          <li>獲得現金獎勵的得獎者，須自行確認並遵守居住國家或地區的相關稅務規定，並完成必要的納稅手續。若國際匯款產生手續費，將由《史萊姆軍團》營運團隊與得獎者共同負擔。</li>
+          <li>參加本活動即視為同意官方於《史萊姆軍團》官方社群帳號、官方網站、線下活動及其他官方管道中，展示、發布或宣傳投稿作品。</li>
+        </ol>
+      </div>
+
+      <div class="cta">
+        <h2 class="cta-title">立即填寫報名表，參加活動！</h2>
+        <p class="cta-copy">用你的創意為《史萊姆軍團》帶來更多精彩！<br>期待看到你的原創作品！</p>
+        <a class="cta-button" href="https://forms.gle/6Wh48RkCDwFjK48B6">前往報名表</a>
+      </div>
+
+      <div class="brand" aria-label="史萊姆軍團">史萊姆<br>軍團</div>
+    </section>
+  </main>
+</body>
+</html>
+
