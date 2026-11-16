@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>슬라임 군단 | 영상 공모전</title>
+  <style>
+    :root {
+      --ink: #2b2451;
+      --purple: #563196;
+      --deep-purple: #281452;
+      --gold: #ffd95c;
+      --gold-dark: #7b4a16;
+      --paper: #fff0d4;
+      --pink: #e7a0f0;
+      --red: #f3525d;
+      --sky: #10bce7;
+      --blue: #4da0ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
+      font-weight: 800;
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255, 255, 255, .95) 0 8%, transparent 9%),
+        radial-gradient(circle at 88% 22%, rgba(255, 255, 255, .72) 0 7%, transparent 8%),
+        radial-gradient(circle at 12% 74%, rgba(255, 255, 255, .6) 0 5%, transparent 6%),
+        linear-gradient(180deg, #22d8f4 0%, #9beeff 22%, #d9f8ff 48%, #44c7ec 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset-block: 0;
+      width: min(13vw, 160px);
+      pointer-events: none;
+      opacity: .28;
+      background:
+        linear-gradient(135deg, transparent 0 28%, rgba(255,255,255,.8) 29% 31%, transparent 32%),
+        linear-gradient(45deg, transparent 0 55%, rgba(28,92,148,.34) 56% 58%, transparent 59%),
+        linear-gradient(180deg, transparent, rgba(12,93,156,.28));
+      filter: blur(.1px);
+    }
+
+    body::before {
+      left: 0;
+    }
+
+    body::after {
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .page {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero {
+      min-height: clamp(520px, 70vw, 760px);
+      display: grid;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 20%, rgba(255,255,255,.92) 0 8%, transparent 9%),
+        radial-gradient(circle at 82% 16%, rgba(255,255,255,.75) 0 6%, transparent 7%),
+        linear-gradient(180deg, rgba(32,216,244,.95), rgba(151,238,255,.82));
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% 0;
+      height: 38%;
+      background: linear-gradient(180deg, rgba(28,14,74,0), rgba(28,14,74,.4));
+      z-index: -1;
+    }
+
+    .title-stack {
+      text-align: center;
+      align-self: end;
+      padding: clamp(64px, 12vw, 132px) clamp(18px, 5vw, 48px) clamp(48px, 8vw, 96px);
+    }
+
+    .title {
+      margin: 0;
+      color: #fff56d;
+      font-size: clamp(48px, 9vw, 108px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      text-shadow: 0 5px 0 #2e1654, 0 10px 0 #7d2bf3, 0 16px 22px rgba(0,0,0,.42);
+      -webkit-text-stroke: clamp(2px, .45vw, 6px) #fff7b3;
+    }
+
+    .title span {
+      display: block;
+      color: #fff;
+      margin-top: .08em;
+      -webkit-text-stroke-color: #2e1654;
+    }
+
+    .tagline {
+      margin: clamp(20px, 4vw, 34px) auto 0;
+      width: fit-content;
+      max-width: 100%;
+      color: #fff;
+      background: rgba(74,28,132,.88);
+      border-block: 2px solid rgba(255,255,255,.65);
+      padding: .55em 1em;
+      font-size: clamp(18px, 3vw, 31px);
+      line-height: 1.2;
+      text-shadow: 0 3px 0 #2d174c;
+    }
+
+    .frame {
+      margin: 0 clamp(14px, 3vw, 38px) 0;
+      padding: clamp(22px, 4vw, 44px) clamp(18px, 5vw, 58px) clamp(36px, 7vw, 80px);
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 17%, rgba(179, 117, 39, .08), transparent 26%),
+        linear-gradient(180deg, rgba(255,251,227,.98), rgba(255,239,205,.96));
+      border: clamp(6px, 1.2vw, 12px) solid #2b174f;
+      outline: 5px solid #d5ad55;
+      box-shadow:
+        inset 0 0 0 4px #7050a6,
+        inset 0 0 28px rgba(123,74,22,.15),
+        0 14px 34px rgba(28, 14, 74, .28);
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background:
+        repeating-linear-gradient(180deg, #f5d86d 0 18px, #3a1c65 18px 30px, #f5d86d 30px 42px),
+        linear-gradient(90deg, #271246, #6e4aa0, #271246);
+      border-inline: 4px solid #1b0d35;
+      opacity: .9;
+    }
+
+    .frame::before {
+      left: -28px;
+    }
+
+    .frame::after {
+      right: -28px;
+    }
+
+    .section {
+      margin: clamp(28px, 6vw, 60px) auto 0;
+      max-width: 850px;
+    }
+
+    .section:first-child {
+      margin-top: 0;
+    }
+
+    .plate {
+      width: min(620px, 92%);
+      margin: 0 auto clamp(18px, 3vw, 28px);
+      color: var(--gold);
+      text-align: center;
+      font-size: clamp(34px, 5.6vw, 62px);
+      line-height: 1.05;
+      padding: .18em .65em .27em;
+      background: linear-gradient(180deg, #6d52ae, #3a236e);
+      border: 5px solid #21103e;
+      outline: 4px solid #e7a83f;
+      border-radius: 8px;
+      text-shadow:
+        0 3px 0 #0e0821,
+        0 0 12px rgba(255, 255, 255, .24);
+      box-shadow: 0 5px 0 #7b4a16;
+    }
+
+    .intro-text,
+    .center-text {
+      text-align: center;
+      font-size: clamp(18px, 3vw, 30px);
+      line-height: 1.36;
+    }
+
+    .schedule {
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      font-size: clamp(17px, 2.5vw, 27px);
+    }
+
+    .idea-list {
+      display: grid;
+      gap: 8px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 20px auto 0;
+      padding: 0;
+      list-style: none;
+      font-size: clamp(18px, 2.7vw, 29px);
+    }
+
+    .idea-list li::before {
+      content: "";
+      display: inline-block;
+      width: .72em;
+      height: .72em;
+      margin-right: .55em;
+      background: linear-gradient(135deg, #ff6a78, #dd1022);
+      border: 2px solid rgba(255, 255, 255, .85);
+      transform: rotate(45deg);
+      box-shadow: 0 2px 0 rgba(31, 20, 80, .5);
+    }
+
+    .note {
+      margin: 24px auto 0;
+      max-width: 800px;
+      font-size: clamp(15px, 2.2vw, 21px);
+    }
+
+    .rewards {
+      display: grid;
+      gap: clamp(18px, 3.8vw, 34px);
+      margin-top: 28px;
+    }
+
+    .reward {
+      text-align: center;
+    }
+
+    .reward-label {
+      display: inline-block;
+      min-width: min(500px, 90%);
+      color: var(--gold);
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 1.1;
+      padding: .16em .7em .25em;
+      background: linear-gradient(180deg, #7a57b9, #4a2b83);
+      border: 4px solid #21103e;
+      outline: 3px solid #d69b35;
+      border-radius: 7px;
+      text-shadow: 0 3px 0 #0f0823;
+      box-shadow: 0 4px 0 #704017;
+    }
+
+    .reward-value {
+      position: relative;
+      margin: 16px auto 0;
+      padding: .55em 1.8em;
+      width: min(820px, 94%);
+      color: var(--ink);
+      font-size: clamp(18px, 2.8vw, 28px);
+      background: rgba(255, 249, 230, .76);
+      border-block: 7px solid var(--pink);
+      clip-path: polygon(4% 0, 96% 0, 100% 50%, 96% 100%, 4% 100%, 0 50%);
+    }
+
+    .small-print {
+      margin: 26px auto 0;
+      max-width: 850px;
+      font-size: clamp(14px, 2vw, 20px);
+    }
+
+    .steps {
+      display: grid;
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      align-items: center;
+      border-bottom: 2px solid #25205a;
+      min-height: 64px;
+    }
+
+    .step-badge {
+      color: #fff;
+      background: var(--red);
+      font-size: clamp(19px, 2.8vw, 30px);
+      line-height: 1;
+      padding: .45em .7em;
+      text-align: center;
+      clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%);
+      text-shadow: 0 2px 0 rgba(0,0,0,.24);
+    }
+
+    .step p {
+      margin: 0;
+      padding: 0 0 0 22px;
+      font-size: clamp(16px, 2.4vw, 24px);
+      line-height: 1.35;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .platform {
+      text-align: center;
+      margin-top: 38px;
+    }
+
+    .platform-title {
+      font-size: clamp(25px, 4vw, 42px);
+      color: #fff;
+      -webkit-text-stroke: 2px var(--ink);
+      text-shadow: 0 3px 0 rgba(43, 36, 81, .7);
+    }
+
+    .platform-strip {
+      display: inline-block;
+      max-width: 100%;
+      margin-top: 8px;
+      padding: .35em 1.25em;
+      color: var(--ink);
+      background: #dfa2ed;
+      font-size: clamp(17px, 2.7vw, 28px);
+      clip-path: polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%);
+    }
+
+    .notice {
+      margin-top: 36px;
+      padding: clamp(20px, 4vw, 42px);
+      border: 7px solid #a89aae;
+      border-radius: 28px;
+      background: rgba(255, 247, 225, .68);
+      box-shadow: inset 0 0 0 4px rgba(255,255,255,.65);
+    }
+
+    .notice h2 {
+      width: fit-content;
+      margin: -62px auto 22px;
+      padding: .1em 1.4em;
+      color: var(--ink);
+      background: var(--paper);
+      border: 7px solid #a89aae;
+      border-radius: 999px;
+      font-size: clamp(22px, 3.4vw, 34px);
+      line-height: 1.1;
+    }
+
+    .notice ol {
+      margin: 0;
+      padding-left: 1.4em;
+      font-size: clamp(14px, 2vw, 20px);
+      line-height: 1.48;
+    }
+
+    .notice li + li {
+      margin-top: .45em;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: clamp(40px, 7vw, 74px);
+    }
+
+    .cta-title {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.15;
+      -webkit-text-stroke: 2px var(--ink);
+      text-shadow: 0 4px 0 rgba(43, 36, 81, .72);
+    }
+
+    .cta-copy {
+      margin: 14px 0 24px;
+      font-size: clamp(18px, 3vw, 30px);
+      line-height: 1.35;
+    }
+
+    .cta-button {
+      display: inline-block;
+      min-width: min(390px, 92%);
+      padding: .72em 1.2em;
+      color: #fff56d;
+      font-size: clamp(22px, 3.5vw, 36px);
+      line-height: 1.1;
+      background: linear-gradient(180deg, #875ee0, #4a258e);
+      border: 5px solid #21103e;
+      outline: 4px solid #f3c253;
+      border-radius: 8px;
+      text-shadow: 0 3px 0 #130926;
+      box-shadow: 0 6px 0 #794719, 0 14px 22px rgba(43, 36, 81, .24);
+    }
+
+    .brand {
+      margin-top: 46px;
+      text-align: center;
+      color: #fff56d;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: .95;
+      text-shadow:
+        0 3px 0 #2e1654,
+        0 6px 0 #7d2bf3,
+        0 10px 18px rgba(0, 0, 0, .35);
+      -webkit-text-stroke: 2px #fff;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 460px;
+      }
+
+      .frame {
+        margin-inline: 12px;
+        outline-width: 3px;
+      }
+
+      .frame::before,
+      .frame::after {
+        width: 16px;
+      }
+
+      .frame::before {
+        left: -17px;
+      }
+
+      .frame::after {
+        right: -17px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        border-bottom: 0;
+        gap: 8px;
+      }
+
+      .step-badge {
+        width: 148px;
+      }
+
+      .step p {
+        padding-left: 0;
+        border-bottom: 2px solid #25205a;
+        padding-bottom: 12px;
+      }
+
+      .notice {
+        border-radius: 18px;
+      }
+
+      .notice h2 {
+        margin-top: -48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="슬라임 군단 영상 공모전 메인 비주얼">
+      <div class="title-stack">
+        <h1 class="title">슬라임 군단<span>영상 공모전!</span></h1>
+        <p class="tagline">나만의 영상으로 슬라임 군단을 알리고 특별한 보상도 받아 보세요!</p>
+      </div>
+    </section>
+
+    <section class="frame">
+      <div class="section">
+        <h2 class="plate">이벤트 일정</h2>
+        <div class="schedule">
+          <div>- 응모 기간: 이벤트 시작일 ~ 2026년 12월 15일 23:59 (UTC0)</div>
+          <div>- 심사 기간: 2026년 12월 15일 ~ 12월 31일</div>
+          <div>- 수상자 발표: 2027년 1월 (예정)</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">응모 작품</h2>
+        <p class="intro-text">슬라임 군단과 관련된 오리지널 영상이라면 주제와 장르에 제한 없이 자유롭게 참여할 수 있습니다!<br>아래와 같은 다양한 영상을 기다립니다.</p>
+        <ul class="idea-list">
+          <li>게임 플레이 및 실황 영상</li>
+          <li>공략 및 플레이 팁 소개</li>
+          <li>챌린지 및 재미있는 콘텐츠</li>
+          <li>명장면 및 하이라이트 편집</li>
+          <li>밈, 패러디 및 2차 창작 등</li>
+        </ul>
+        <div class="note">
+          <strong>※ 응모 시 유의사항</strong><br>
+          - 영상 길이는 15초 이상이어야 합니다.<br>
+          - 게임 화면을 단순 녹화한 영상은 응모 대상에서 제외됩니다. 실황, 해설, 편집 등 자신만의 창의적인 요소를 더한 영상을 제작해 주세요!
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">이벤트 보상</h2>
+        <div class="rewards">
+          <div class="reward">
+            <div class="reward-label">【대상】 1명</div>
+            <div class="reward-value">335,000원 + 다이아 × 3,000 + 미나 조각 × 3</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【최우수상】 2명</div>
+            <div class="reward-value">126,000원 + 다이아 × 1,600 + 시라누이 조각 × 3</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【우수상】 3명</div>
+            <div class="reward-value">59,000원 + 다이아 × 800 + 예언자 조각 × 3</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【행운상】 10명</div>
+            <div class="reward-value">랜덤 고급 특성석 × 5 + 랜덤 초급 특성석 × 10</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">【참가상】</div>
+            <div class="reward-value">랜덤 초급 특성석 × 10</div>
+          </div>
+        </div>
+        <div class="small-print">
+          - 유효한 응모 작품을 제출한 참가자에게는 참가상을 1회 지급합니다.<br>
+          - 행운상은 대상, 최우수상, 우수상 수상자를 제외한 유효 응모자 중 추첨을 통해 선정하며, 1인당 추첨 기회는 1회로 제한됩니다.<br>
+          - 다른 부문의 상을 수상하더라도 참가상은 중복으로 지급됩니다.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">참여 방법</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-badge">STEP 1</div>
+            <p>슬라임 군단을 주제로 나만의 오리지널 영상을 제작해 주세요!</p>
+          </div>
+          <div class="step">
+            <div class="step-badge">STEP 2</div>
+            <p>지정된 플랫폼에 영상을 업로드하고 <a href="#hashtags">#SlimeLegion</a> 및 <a href="#hashtags">#SlimeLegionVideoContest</a> 해시태그를 추가해 주세요!</p>
+          </div>
+          <div class="step">
+            <div class="step-badge">STEP 3</div>
+            <p><a href="https://forms.gle/6Wh48RkCDwFjK48B6">공식 응모 폼</a>에 접속해 필수 정보를 입력하고 영상 URL을 제출하면 참여 완료!</p>
+          </div>
+        </div>
+
+        <div class="platform" id="hashtags">
+          <div class="platform-title">참여 가능 플랫폼</div>
+          <div class="platform-strip">YouTube / TikTok / X / Instagram 등 SNS 플랫폼</div>
+        </div>
+      </div>
+
+      <div class="section notice">
+        <h2>유의사항</h2>
+        <ol>
+          <li>응모 작품은 슬라임 군단과 관련된 콘텐츠여야 합니다.</li>
+          <li>응모 작품이 제3자의 권리(지식재산권, 초상권, 명예권 등)를 침해하지 않는지 반드시 확인해 주세요. 타인의 작품을 무단으로 복제하거나 도용하는 행위는 엄격히 금지됩니다. 제3자의 자료를 사용한 경우 반드시 해당 권리자의 허가를 받은 후 출처를 명시해야 합니다.</li>
+          <li>한 명의 크리에이터가 여러 작품을 응모할 수 있지만, 대상·최우수상·우수상은 중복 수상이 불가합니다. 여러 작품이 수상작으로 선정되더라도 가장 높은 등급의 상 1개만 지급됩니다.</li>
+          <li>AI로 생성한 영상, 음악, 이미지 및 기타 형태의 콘텐츠는 모두 응모 대상에서 제외됩니다. 작품 제작 과정에서 AI를 활용한 경우 참가 자격이 인정되지 않습니다.</li>
+          <li>다음 항목에 해당하는 내용이 포함된 작품은 심사에서 제외되며, 수상 이후 해당 사실이 확인될 경우에도 수상 자격이 취소될 수 있습니다: 정치, 종교, 인종 또는 성별에 대한 차별적 표현, 슬라임 군단 및 운영사의 브랜드 이미지를 훼손하는 내용, 관련 법률 및 규정을 위반하는 내용.</li>
+          <li>응모 계정과 응모 작품은 응모 시점부터 심사 종료 시점까지 전체 공개 상태를 유지해야 합니다. 수상자는 수상자 발표일로부터 최소 7일간 수상 작품을 전체 공개 상태로 유지해야 하며, 해당 기간에 작품을 삭제하거나 비공개로 전환할 경우 수상이 취소될 수 있습니다.</li>
+          <li>동일한 영상을 여러 참여 가능 플랫폼에 업로드한 경우에도 하나의 응모 작품으로 인정됩니다. 응모 폼은 1회만 제출하고, 각 플랫폼에 업로드한 영상 URL을 동일한 응모 폼에 모두 기재해 주세요.</li>
+          <li>공식 심사를 통과한 작품에 한해 수상 자격이 주어집니다.</li>
+          <li>수상작은 작품의 완성도, 표현력, 창의성, 화제성 등 다양한 요소를 종합적으로 고려하여 선정됩니다. 응모 작품 수가 적거나 전체적인 작품 수준이 심사 기준에 미치지 못할 경우 일부 수상 부문은 수상자가 선정되지 않을 수 있습니다. 수상 작품이 규정 위반으로 수상 자격을 상실한 경우, 다른 기준을 충족한 작품 중에서 수상자를 추가로 선정할 수 있습니다.</li>
+          <li>수상자 발표 후, 수상자는 지정된 기간 내에 안내된 방법에 따라 경품 수령에 필요한 정보를 제출해야 합니다. 필수 정보를 제출하지 않거나 잘못된 정보를 제출한 경우 경품 수령을 포기한 것으로 간주됩니다. 포기한 경품은 별도로 재지급되지 않으니 유의해 주세요.</li>
+          <li>현금 상금 수상자는 거주 국가 및 지역의 세법을 확인하고 필요한 납세 절차를 직접 진행해야 합니다. 해외 송금 시 발생하는 수수료는 슬라임 군단 운영팀과 수상자가 공동 부담합니다.</li>
+          <li>본 이벤트에 참여하면 응모 작품이 슬라임 군단 공식 SNS, 공식 홈페이지, 오프라인 이벤트 및 기타 공식 채널을 통해 소개, 게시 또는 홍보되는 데 동의한 것으로 간주됩니다.</li>
+        </ol>
+      </div>
+
+      <div class="cta">
+        <h2 class="cta-title">지금 바로 응모하고 나만의 영상을 뽐내 보세요!</h2>
+        <p class="cta-copy">여러분만의 개성 넘치는 영상으로 슬라임 군단을<br>더욱 재미있게 만들어 주세요!<br>멋진 작품을 기다리고 있겠습니다!</p>
+        <a class="cta-button" href="https://forms.gle/6Wh48RkCDwFjK48B6">공식 응모 폼</a>
+      </div>
+
+      <div class="brand" aria-label="슬라임 군단">슬라임<br>군단</div>
+    </section>
+  </main>
+</body>
+</html>
