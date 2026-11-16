@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slime Legion | Video Creator Contest</title>
+  <style>
+    :root {
+      --ink: #2b2451;
+      --purple: #563196;
+      --deep-purple: #281452;
+      --gold: #ffd95c;
+      --gold-dark: #7b4a16;
+      --paper: #fff0d4;
+      --pink: #e7a0f0;
+      --red: #f3525d;
+      --sky: #10bce7;
+      --blue: #4da0ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+      font-weight: 800;
+      line-height: 1.55;
+      background:
+        radial-gradient(circle at 18% 8%, rgba(255, 255, 255, .95) 0 8%, transparent 9%),
+        radial-gradient(circle at 88% 22%, rgba(255, 255, 255, .72) 0 7%, transparent 8%),
+        radial-gradient(circle at 12% 74%, rgba(255, 255, 255, .6) 0 5%, transparent 6%),
+        linear-gradient(180deg, #22d8f4 0%, #9beeff 22%, #d9f8ff 48%, #44c7ec 100%);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset-block: 0;
+      width: min(13vw, 160px);
+      pointer-events: none;
+      opacity: .28;
+      background:
+        linear-gradient(135deg, transparent 0 28%, rgba(255,255,255,.8) 29% 31%, transparent 32%),
+        linear-gradient(45deg, transparent 0 55%, rgba(28,92,148,.34) 56% 58%, transparent 59%),
+        linear-gradient(180deg, transparent, rgba(12,93,156,.28));
+      filter: blur(.1px);
+    }
+
+    body::before {
+      left: 0;
+    }
+
+    body::after {
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .page {
+      width: min(1080px, 100%);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero {
+      min-height: clamp(520px, 70vw, 760px);
+      display: grid;
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 24% 20%, rgba(255,255,255,.92) 0 8%, transparent 9%),
+        radial-gradient(circle at 82% 16%, rgba(255,255,255,.75) 0 6%, transparent 7%),
+        linear-gradient(180deg, rgba(32,216,244,.95), rgba(151,238,255,.82));
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% 0;
+      height: 38%;
+      background: linear-gradient(180deg, rgba(28,14,74,0), rgba(28,14,74,.4));
+      z-index: -1;
+    }
+
+    .title-stack {
+      text-align: center;
+      align-self: end;
+      padding: clamp(64px, 12vw, 132px) clamp(18px, 5vw, 48px) clamp(48px, 8vw, 96px);
+    }
+
+    .title {
+      margin: 0;
+      color: #fff56d;
+      font-size: clamp(48px, 9vw, 108px);
+      line-height: .92;
+      letter-spacing: 0;
+      text-shadow: 0 5px 0 #2e1654, 0 10px 0 #7d2bf3, 0 16px 22px rgba(0,0,0,.42);
+      -webkit-text-stroke: clamp(2px, .45vw, 6px) #fff7b3;
+    }
+
+    .title span {
+      display: block;
+      color: #fff;
+      margin-top: .08em;
+      -webkit-text-stroke-color: #2e1654;
+    }
+
+    .tagline {
+      margin: clamp(20px, 4vw, 34px) auto 0;
+      width: fit-content;
+      max-width: 100%;
+      color: #fff;
+      background: rgba(74,28,132,.88);
+      border-block: 2px solid rgba(255,255,255,.65);
+      padding: .55em 1em;
+      font-size: clamp(18px, 3vw, 31px);
+      line-height: 1.12;
+      text-shadow: 0 3px 0 #2d174c;
+    }
+
+    .frame {
+      margin: 0 clamp(14px, 3vw, 38px) 0;
+      padding: clamp(22px, 4vw, 44px) clamp(18px, 5vw, 58px) clamp(36px, 7vw, 80px);
+      position: relative;
+      background:
+        radial-gradient(circle at 50% 17%, rgba(179, 117, 39, .08), transparent 26%),
+        linear-gradient(180deg, rgba(255,251,227,.98), rgba(255,239,205,.96));
+      border: clamp(6px, 1.2vw, 12px) solid #2b174f;
+      outline: 5px solid #d5ad55;
+      box-shadow:
+        inset 0 0 0 4px #7050a6,
+        inset 0 0 28px rgba(123,74,22,.15),
+        0 14px 34px rgba(28, 14, 74, .28);
+    }
+
+    .frame::before,
+    .frame::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background:
+        repeating-linear-gradient(180deg, #f5d86d 0 18px, #3a1c65 18px 30px, #f5d86d 30px 42px),
+        linear-gradient(90deg, #271246, #6e4aa0, #271246);
+      border-inline: 4px solid #1b0d35;
+      opacity: .9;
+    }
+
+    .frame::before {
+      left: -28px;
+    }
+
+    .frame::after {
+      right: -28px;
+    }
+
+    .section {
+      margin: clamp(28px, 6vw, 60px) auto 0;
+      max-width: 850px;
+    }
+
+    .section:first-child {
+      margin-top: 0;
+    }
+
+    .plate {
+      width: min(620px, 92%);
+      margin: 0 auto clamp(18px, 3vw, 28px);
+      color: var(--gold);
+      text-align: center;
+      font-size: clamp(30px, 5.4vw, 56px);
+      line-height: 1.05;
+      padding: .22em .65em .3em;
+      background: linear-gradient(180deg, #6d52ae, #3a236e);
+      border: 5px solid #21103e;
+      outline: 4px solid #e7a83f;
+      border-radius: 8px;
+      text-shadow:
+        0 3px 0 #0e0821,
+        0 0 12px rgba(255, 255, 255, .24);
+      box-shadow: 0 5px 0 #7b4a16;
+    }
+
+    .intro-text,
+    .center-text {
+      text-align: center;
+      font-size: clamp(18px, 3vw, 30px);
+      line-height: 1.3;
+    }
+
+    .schedule {
+      width: fit-content;
+      max-width: 100%;
+      margin: 0 auto;
+      font-size: clamp(17px, 2.5vw, 27px);
+    }
+
+    .idea-list {
+      display: grid;
+      gap: 8px;
+      width: fit-content;
+      max-width: 100%;
+      margin: 20px auto 0;
+      padding: 0;
+      list-style: none;
+      font-size: clamp(18px, 2.7vw, 29px);
+    }
+
+    .idea-list li::before {
+      content: "";
+      display: inline-block;
+      width: .72em;
+      height: .72em;
+      margin-right: .55em;
+      background: linear-gradient(135deg, #ff6a78, #dd1022);
+      border: 2px solid rgba(255, 255, 255, .85);
+      transform: rotate(45deg);
+      box-shadow: 0 2px 0 rgba(31, 20, 80, .5);
+    }
+
+    .note {
+      margin: 24px auto 0;
+      max-width: 800px;
+      font-size: clamp(15px, 2.2vw, 21px);
+    }
+
+    .rewards {
+      display: grid;
+      gap: clamp(18px, 3.8vw, 34px);
+      margin-top: 28px;
+    }
+
+    .reward {
+      text-align: center;
+    }
+
+    .reward-label {
+      display: inline-block;
+      min-width: min(560px, 90%);
+      color: var(--gold);
+      font-size: clamp(21px, 3.8vw, 35px);
+      line-height: 1.1;
+      padding: .16em .7em .25em;
+      background: linear-gradient(180deg, #7a57b9, #4a2b83);
+      border: 4px solid #21103e;
+      outline: 3px solid #d69b35;
+      border-radius: 7px;
+      text-shadow: 0 3px 0 #0f0823;
+      box-shadow: 0 4px 0 #704017;
+    }
+
+    .reward-value {
+      position: relative;
+      margin: 16px auto 0;
+      padding: .55em 1.8em;
+      width: min(820px, 94%);
+      color: var(--ink);
+      font-size: clamp(18px, 2.8vw, 28px);
+      background: rgba(255, 249, 230, .76);
+      border-block: 7px solid var(--pink);
+      clip-path: polygon(4% 0, 96% 0, 100% 50%, 96% 100%, 4% 100%, 0 50%);
+    }
+
+    .small-print {
+      margin: 26px auto 0;
+      max-width: 850px;
+      font-size: clamp(14px, 2vw, 20px);
+    }
+
+    .steps {
+      display: grid;
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      align-items: center;
+      border-bottom: 2px solid #25205a;
+      min-height: 64px;
+    }
+
+    .step-badge {
+      color: #fff;
+      background: var(--red);
+      font-size: clamp(19px, 2.8vw, 30px);
+      line-height: 1;
+      padding: .45em .7em;
+      text-align: center;
+      clip-path: polygon(0 0, 86% 0, 100% 50%, 86% 100%, 0 100%);
+      text-shadow: 0 2px 0 rgba(0,0,0,.24);
+    }
+
+    .step p {
+      margin: 0;
+      padding: 0 0 0 22px;
+      font-size: clamp(16px, 2.4vw, 24px);
+      line-height: 1.25;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .platform {
+      text-align: center;
+      margin-top: 38px;
+    }
+
+    .platform-title {
+      font-size: clamp(25px, 4vw, 42px);
+      color: #fff;
+      -webkit-text-stroke: 2px var(--ink);
+      text-shadow: 0 3px 0 rgba(43, 36, 81, .7);
+    }
+
+    .platform-strip {
+      display: inline-block;
+      max-width: 100%;
+      margin-top: 8px;
+      padding: .35em 1.25em;
+      color: var(--ink);
+      background: #dfa2ed;
+      font-size: clamp(17px, 2.7vw, 28px);
+      clip-path: polygon(5% 0, 95% 0, 100% 50%, 95% 100%, 5% 100%, 0 50%);
+    }
+
+    .notice {
+      margin-top: 36px;
+      padding: clamp(20px, 4vw, 42px);
+      border: 7px solid #a89aae;
+      border-radius: 28px;
+      background: rgba(255, 247, 225, .68);
+      box-shadow: inset 0 0 0 4px rgba(255,255,255,.65);
+    }
+
+    .notice h2 {
+      width: fit-content;
+      margin: -62px auto 22px;
+      padding: .1em 1.4em;
+      color: var(--ink);
+      background: var(--paper);
+      border: 7px solid #a89aae;
+      border-radius: 999px;
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 1.1;
+    }
+
+    .notice ol {
+      margin: 0;
+      padding-left: 1.4em;
+      font-size: clamp(14px, 2vw, 20px);
+      line-height: 1.45;
+    }
+
+    .notice li + li {
+      margin-top: .45em;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: clamp(40px, 7vw, 74px);
+    }
+
+    .cta-title {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(30px, 5vw, 54px);
+      line-height: 1.15;
+      -webkit-text-stroke: 2px var(--ink);
+      text-shadow: 0 4px 0 rgba(43, 36, 81, .72);
+    }
+
+    .cta-copy {
+      margin: 14px 0 24px;
+      font-size: clamp(18px, 3vw, 30px);
+      line-height: 1.25;
+    }
+
+    .cta-button {
+      display: inline-block;
+      min-width: min(390px, 92%);
+      padding: .72em 1.2em;
+      color: #fff56d;
+      font-size: clamp(22px, 3.5vw, 36px);
+      line-height: 1.1;
+      background: linear-gradient(180deg, #875ee0, #4a258e);
+      border: 5px solid #21103e;
+      outline: 4px solid #f3c253;
+      border-radius: 8px;
+      text-shadow: 0 3px 0 #130926;
+      box-shadow: 0 6px 0 #794719, 0 14px 22px rgba(43, 36, 81, .24);
+    }
+
+    .brand {
+      margin-top: 46px;
+      text-align: center;
+      color: #fff56d;
+      font-size: clamp(34px, 6vw, 64px);
+      line-height: .95;
+      text-shadow:
+        0 3px 0 #2e1654,
+        0 6px 0 #7d2bf3,
+        0 10px 18px rgba(0, 0, 0, .35);
+      -webkit-text-stroke: 2px #fff;
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: 460px;
+      }
+
+      .frame {
+        margin-inline: 12px;
+        outline-width: 3px;
+      }
+
+      .frame::before,
+      .frame::after {
+        width: 16px;
+      }
+
+      .frame::before {
+        left: -17px;
+      }
+
+      .frame::after {
+        right: -17px;
+      }
+
+      .step {
+        grid-template-columns: 1fr;
+        border-bottom: 0;
+        gap: 8px;
+      }
+
+      .step-badge {
+        width: 148px;
+      }
+
+      .step p {
+        padding-left: 0;
+        border-bottom: 2px solid #25205a;
+        padding-bottom: 12px;
+      }
+
+      .notice {
+        border-radius: 18px;
+      }
+
+      .notice h2 {
+        margin-top: -48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="Calling all video creators hero">
+      <div class="title-stack">
+        <h1 class="title">Calling All<span>Video Creators!</span></h1>
+        <p class="tagline">Create and share your own Slime Legion videos for<br>a chance to win amazing prizes!</p>
+      </div>
+    </section>
+
+    <section class="frame">
+      <div class="section">
+        <h2 class="plate">Event Schedule</h2>
+        <div class="schedule">
+          <div>- Submission Period: From the campaign launch until December 15, 2026, 23:59 (UTC0)</div>
+          <div>- Judging Period: December 15-31, 2026 (UTC0)</div>
+          <div>- Winner Announcement: January 2027 (Tentative)</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">Video Content</h2>
+        <p class="intro-text">Create an original video featuring Slime Legion!<br>Any theme or style is welcome.<br>Here are some ideas to get you started:</p>
+        <ul class="idea-list">
+          <li>Gameplay &amp; Let's Plays</li>
+          <li>Guides, Tips &amp; Strategies</li>
+          <li>Fun Challenges &amp; Comedy Videos</li>
+          <li>Epic Moments &amp; Highlight Reels</li>
+          <li>Memes, Parodies &amp; Fan Creations</li>
+        </ul>
+        <div class="note">
+          <strong>Please Note:</strong><br>
+          - Videos must be at least 15 seconds long.<br>
+          - Videos consisting solely of unedited gameplay footage will not qualify. Add your own creative touch through commentary, explanations, editing, or other original elements!
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">Prizes</h2>
+        <div class="rewards">
+          <div class="reward">
+            <div class="reward-label">[Grand Prize] × 1 Winner</div>
+            <div class="reward-value">$250 USD + 3,000 Diamonds + 3 Mina Shards</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">[Runner-Up] × 2 Winners</div>
+            <div class="reward-value">$94 USD + 1,600 Diamonds + 3 Shiranui Shards</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">[Honorable Mention] × 3 Winners</div>
+            <div class="reward-value">$44 USD + 800 Diamonds + 3 Prophet Shards</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">[Lucky Draw] × 10 Winners</div>
+            <div class="reward-value">5 Random Advanced Talent Stones + 10 Random Basic Talent Stones</div>
+          </div>
+          <div class="reward">
+            <div class="reward-label">[Participation Reward]</div>
+            <div class="reward-value">10 Random Basic Talent Stones</div>
+          </div>
+        </div>
+        <div class="small-print">
+          - Each eligible participant will receive the Participation Reward once, regardless of the number of valid entries submitted.<br>
+          - Lucky Draw winners will be randomly selected from all eligible participants who do not win the Grand Prize, Runner-Up, or Honorable Mention. Each eligible participant receives one entry in the draw.<br>
+          - The Participation Reward will also be granted to winners of other prize categories.
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="plate">How to Enter</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-badge">STEP 1</div>
+            <p>Create an original video featuring Slime Legion!</p>
+          </div>
+          <div class="step">
+            <div class="step-badge">STEP 2</div>
+            <p>Publish your video on an eligible platform using the hashtags <a href="#hashtags">#SlimeLegion</a> and <a href="#hashtags">#SlimeLegionVideoContest</a>.</p>
+          </div>
+          <div class="step">
+            <div class="step-badge">STEP 3</div>
+            <p>Submit your entry through the <a href="https://forms.gle/6Wh48RkCDwFjK48B6">Official Entry Form</a>, including the required information and your video URL(s).</p>
+          </div>
+        </div>
+
+        <div class="platform" id="hashtags">
+          <div class="platform-title">Eligible Platforms</div>
+          <div class="platform-strip">YouTube / TikTok / X / Instagram and other social media platforms.</div>
+        </div>
+      </div>
+
+      <div class="section notice">
+        <h2>Terms &amp; Conditions</h2>
+        <ol>
+          <li>All submitted videos must be related to Slime Legion.</li>
+          <li>Please ensure that your submissions do not infringe upon any third-party rights, including intellectual property rights, portrait rights, or reputation rights. Copying or plagiarizing another person's work is strictly prohibited. If your submission contains third-party materials, you must obtain permission from the relevant rights holders and clearly credit the original sources.</li>
+          <li>Each creator may submit multiple entries. However, a creator may only receive one award among the Grand Prize, Runner-Up, and Honorable Mention categories. If multiple submissions from the same creator are selected, only the highest-ranking prize will be awarded.</li>
+          <li>All videos, music, images, and other content generated using AI are ineligible. Any submission that contains AI-generated content will be disqualified.</li>
+          <li>Submissions containing political, religious, racial, or gender-discriminatory content, content that damages the reputation or brand image of Slime Legion or its operating company, or content that violates applicable laws and regulations will be disqualified. Any prizes awarded may be revoked if such violations are discovered after the winners are announced.</li>
+          <li>Your submission account and video must remain publicly accessible from the time of submission until the judging period ends. Winners must also keep their winning videos publicly accessible for at least 7 days after the winner announcement. Failure to do so may result in disqualification and prize revocation.</li>
+          <li>If you upload the same video to multiple eligible platforms, it will count as one entry. Submit the entry form only once and include all relevant video URLs in the same form.</li>
+          <li>Only submissions that pass the official review process will be eligible for prizes.</li>
+          <li>Winners will be selected based on an overall evaluation of video quality, presentation, creativity, popularity, and other relevant factors. If the number of submissions is insufficient or the overall quality of entries does not meet our standards, some prize slots may remain unfilled. If a selected winner is later disqualified due to a rule violation, another eligible submission may be selected in their place.</li>
+          <li>After the winners are announced, winners must provide the required information through the designated method within the specified period to claim their prizes. Failure to submit the required information, or providing incorrect information, will be considered a forfeiture of the prize. Forfeited prizes will not be redistributed.</li>
+          <li>Winners of cash prizes are responsible for reviewing and fulfilling any applicable tax obligations under the laws of their country or region of residence. Any fees incurred during international money transfers will be shared between the Slime Legion operations team and the winner.</li>
+          <li>By participating in this event, you agree that your submitted videos may be featured, published, or promoted through official Slime Legion channels, including official social media accounts, the official website, offline events, and other official channels.</li>
+        </ol>
+      </div>
+
+      <div class="cta">
+        <h2 class="cta-title">Submit Your Entry Now!</h2>
+        <p class="cta-copy">Show us your creativity and bring Slime Legion<br>to life with your original videos. We can't wait to<br>see what you create!</p>
+        <a class="cta-button" href="https://forms.gle/6Wh48RkCDwFjK48B6">Official Entry Form</a>
+      </div>
+
+      <div class="brand" aria-label="Slime Legion">Slime<br>Legion</div>
+    </section>
+  </main>
+</body>
+</html>
